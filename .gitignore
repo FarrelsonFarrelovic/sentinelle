@@ -1,0 +1,12 @@
+data/
+.env
+*.duckdb
+__pycache__/
+mlruns/
+dbt/target/
+dbt/logs/
+data/
+data_faux/
+.venv/
+.env
+build.log
