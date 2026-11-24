@@ -1,7 +1,7 @@
 # Spark 4 + PySpark + Jupyter, avec les bibliothèques Iceberg et S3 pré-téléchargées.
-FROM spark:4.2.0-python3
+FROM spark:4.0.1-python3
 USER root
-RUN pip install --no-cache-dir jupyterlab pyiceberg[s3fs] duckdb pandas pyarrow
+RUN pip install --no-cache-dir --default-timeout=300 --retries 15 jupyterlab pyiceberg[s3fs] duckdb pandas pyarrow
 # Versions à aligner sur votre Spark : vérifier sur https://iceberg.apache.org/releases/
 ARG ICEBERG=1.10.1
 ARG SCALA=2.13

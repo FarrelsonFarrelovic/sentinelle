@@ -10,3 +10,6 @@ data_faux/
 .venv/
 .env
 build.log
+data_faux/
+.venv/
+*.log

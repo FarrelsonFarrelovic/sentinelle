@@ -20,7 +20,7 @@ x-minio-env: &minio-env
 services:
   # ---------------------------------------------------------------- socle
   minio:
-    image: minio/minio:latest
+    image: scnd/minio-mirror:RELEASE.2025-09-07T16-13-09Z
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_USER:-sentinelle}
@@ -33,7 +33,7 @@ services:
       retries: 10
 
   minio-init:                 # crée les buckets puis s'arrête
-    image: minio/mc:latest
+    image: scnd/mc-mirror:RELEASE.2025-02-04T04-57-50Z
     depends_on: {minio: {condition: service_healthy}}
     entrypoint: >
       sh -c "mc alias set s3 http://minio:9000 $${MINIO_USER:-sentinelle} $${MINIO_PASSWORD:-sentinelle123} &&
@@ -77,6 +77,7 @@ services:
     environment:
       <<: *minio-env
       SPARK_DRIVER_MEMORY: 3g
+      HOME: /tmp
     ports: ["8888:8888", "4040:4040"]
     volumes: [./spark:/opt/sentinelle/spark, ./data:/data:ro]
     depends_on: [iceberg-rest]
